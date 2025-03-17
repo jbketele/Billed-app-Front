@@ -34,26 +34,30 @@ export default class {
       .list()
       .then(snapshot => {
         const bills = snapshot
-          .map(doc => {
-            try {
-              return {
-                ...doc,
-                date: formatDate(doc.date),
-                status: formatStatus(doc.status)
-              }
-            } catch(e) {
-              // if for some reason, corrupted data was introduced, we manage here failing formatDate function
-              // log the error and return unformatted date in that case
-              console.log(e,'for',doc)
-              return {
-                ...doc,
-                date: doc.date,
-                status: formatStatus(doc.status)
-              }
-            }
-          })
-          console.log('length', bills.length)
-        return bills
+          .sort((a, b) => new Date(b.date) - new Date(a.date));
+      
+        console.log('Dates triées avant formatage:', bills.map(bill => bill.date));
+      
+        const formattedBills = bills.map(doc => {
+          try {
+            return {
+              ...doc,
+              date: formatDate(doc.date),
+              status: formatStatus(doc.status)
+            };
+          } catch (e) {
+            console.log(e, 'pour', doc);
+            return {
+              ...doc,
+              date: doc.date,
+              status: formatStatus(doc.status)
+            };
+          }
+        });
+      
+        console.log('Dates après formatage:', formattedBills.map(bill => bill.date));
+        console.log('Longueur des factures:', formattedBills.length);
+        return formattedBills;
       })
     }
   }
