@@ -1,7 +1,7 @@
 
 export default () => {
 
-  return(`
+  return (`
       <div class="page-div">
         <div class="row">
           <div class="title-container"> 
@@ -37,7 +37,8 @@ export default () => {
                   <label for="inputPassword">Mot de passe</label>
                   <input type="password" data-testid="admin-password-input" class="form-control" placeholder="******" required>
                   <button  type="submit" class="btn btn-lg btn-primary btn-block" data-testid="admin-login-button" style="background-color: #0E5AE5;">Se connecter</button>
-                </form>
+                    <p data-testid="error-message" class="text-danger" style="display: none;">Login failed</p>
+                  </form>
               </div>
             </div>
           </div>
@@ -45,4 +46,3 @@ export default () => {
       </div>
   `)
 }
-  
